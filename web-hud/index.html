@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VisionGuard: Driver Cockpit HUD</title>
+    <link rel="stylesheet" href="css/hud-style.css">
+</head>
+<body>
+    <header class="hud-header">
+        <div class="logo">VisionGuard <span>Driver Telematics</span></div>
+        <div class="system-status" id="sys-status">SYSTEM READY</div>
+    </header>
+
+    <main class="dashboard-grid">
+        <section class="camera-card">
+            <h2>Live In-Cabin Camera Stream</h2>
+            <div class="video-container">
+                <img id="video-stream" src="http://localhost:5000/video_feed" alt="Webcam Stream" onerror="this.src=''; this.alt='Waiting for Python Vision Engine (http://localhost:5000/video_feed)...';">
+                <div class="overlay-badge" id="driver-badge">ATTENTIVE</div>
+            </div>
+        </section>
+
+        <section class="telemetry-card">
+            <h2>Live Biometric Telemetry</h2>
+            <div class="gauge-container">
+                <div class="gauge-box">
+                    <div class="gauge-title">Eye Aspect Ratio (EAR)</div>
+                    <div class="gauge-value" id="val-ear">0.32</div>
+                    <div class="gauge-sub">Threshold: < 0.20 (Microsleep)</div>
+                </div>
+                <div class="gauge-box">
+                    <div class="gauge-title">Mouth Aspect Ratio (MAR)</div>
+                    <div class="gauge-value" id="val-mar">0.14</div>
+                    <div class="gauge-sub">Threshold: > 0.65 (Yawn)</div>
+                </div>
+                <div class="gauge-box">
+                    <div class="gauge-title">Head Pose (Pitch)</div>
+                    <div class="gauge-value" id="val-pitch">-2.4°</div>
+                    <div class="gauge-sub">Threshold: < -20° (Phone)</div>
+                </div>
+            </div>
+
+            <div class="alert-banner" id="alert-box">
+                STATE: ATTENTIVE (SAFE TO DRIVE)
+            </div>
+
+            <h2>Incident Audit Log (SQL Stream)</h2>
+            <div class="log-table-container">
+                <table class="log-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Violation</th>
+                            <th>Severity</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody id="log-body">
+                        <tr>
+                            <td>System Boot</td>
+                            <td>Monitoring Active</td>
+                            <td><span class="badge info">INFO</span></td>
+                            <td>--</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
